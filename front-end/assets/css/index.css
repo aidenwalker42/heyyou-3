@@ -1,0 +1,35 @@
+.logo img {
+  width: 100px;
+  height: auto;
+}
+
+#banner video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1; /* Ensures the video is behind the content */
+}
+
+@media screen and (max-width: 1680px) {
+  .logo img {
+    width: 90px;
+    height: auto;
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  .logo img {
+    width: 75px;
+    height: auto;
+  }
+}
+
+@media screen and (max-width: 736px) {
+  .logo img {
+    width: 60px;
+    height: auto;
+  }
+}
