@@ -1,5 +1,5 @@
 import mongodb from 'mongodb'
-import atlas from "../secrets.json" assert {type: "json"}
+import atlas from "../secrets.json" with {type: "json"}
 
 async function loadCustomerContactCollection() {
     const client = await mongodb.MongoClient.connect(atlas.atlas, {useNewUrlParser: true}, { useUnifiedTopology: true })
