@@ -1,6 +1,4 @@
 import mongodb from 'mongodb'
-import atlas from "../secrets.json" with {type: "json"}
-
 
 
 async function loadCustomerContactCollection() {
