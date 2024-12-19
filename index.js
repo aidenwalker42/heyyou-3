@@ -2,6 +2,7 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 import path from 'path'
+require("dotenv").config()
 import { fileURLToPath } from 'url'
 
 // Setting up __dirname for ES6
@@ -33,5 +34,7 @@ if(process.env.NODE_ENV === 'production') {
 }
 
 const port = process.env.PORT || 5000
+
+console.log(process.env.MONGO)
 
 app.listen(port, () => console.log('Server started on port ' + port))
