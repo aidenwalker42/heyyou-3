@@ -13,6 +13,29 @@
   z-index: 1; /* Ensures the video is behind the content */
 }
 
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+th,
+td {
+  /* border: 1px solid #ddd; */
+  padding: 8px;
+  text-align: left;
+}
+
+.collapsible {
+  cursor: pointer;
+  transition: filter 0.3s ease;
+}
+.collapsible:hover {
+  filter: brightness(1.5); /* Lightens the row by 10% */
+}
+.content {
+  display: none;
+}
+
 @media screen and (max-width: 1680px) {
   .logo img {
     width: 90px;
