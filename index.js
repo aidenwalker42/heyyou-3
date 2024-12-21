@@ -2,6 +2,7 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 import path from 'path'
+import "dotenv/config.js"
 import { fileURLToPath } from 'url'
 
 // Setting up __dirname for ES6
@@ -26,10 +27,10 @@ app.use('/api/websiteModification', websiteModification)
 
 if(process.env.NODE_ENV === 'production') {
   // Static Folder
-  app.use(express.static(path.join(__dirname + '/public/')))
+  app.use(express.static(path.join(__dirname + '/front-end/')))
 
   // Handle SPA
-  app.get(/.*/, (req, res) => res.sendFile(path.join(__dirname + '/public/index.html')))
+  app.get(/.*/, (req, res) => res.sendFile(path.join(__dirname + '/front-end/index.html')))
 }
 
 const port = process.env.PORT || 5000
