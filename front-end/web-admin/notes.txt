@@ -1,0 +1,7 @@
+Get request needs "params"
+let res = await axios.get(url.URL + "search", {params: params})
+
+other requests dont!!!!!
+let res = await axios.get(url.URL + "put", {})
+
+FUCKING RETARDED

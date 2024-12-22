@@ -1,0 +1,18 @@
+.login-container {
+    margin: auto;
+    height: 200px;
+    width: 400px;
+    max-width: 400px;
+    min-width: 400px;
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 9, 9, 0.08);
+}
+
+.login-container h1 {
+    text-align: center;
+    margin: revert-layer;
+}
