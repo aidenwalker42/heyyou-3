@@ -1,18 +1,25 @@
+.admin-panel-container {
+  margin: 10px;
+}
+
+.content-panel {
+  margin: 10px;
+}
+
 .login-container {
-    margin: auto;
-    height: 200px;
-    width: 400px;
-    max-width: 400px;
-    min-width: 400px;
-    position: absolute;
-    top:0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(255, 9, 9, 0.08);
+  margin: auto;
+  height: 200px;
+  width: 400px;
+  max-width: 400px;
+  min-width: 400px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 .login-container h1 {
-    text-align: center;
-    margin: revert-layer;
+  text-align: center;
+  margin: revert-layer;
 }

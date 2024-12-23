@@ -9,12 +9,13 @@
 		<title>Generic - Forty by HTML5 UP</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<link rel="stylesheet" href="assets/css/index.css">
-		<link rel="stylesheet" href="assets/css/inbox.css">
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<link rel="stylesheet" href="../assets/css/main.css" />
+		<link rel="stylesheet" href="../assets/css/index.css">
+		<link rel="stylesheet" href="../assets/css/inbox.css">
+		<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
 	</head>
 	<body class="is-preload">
+		
 		<div id="wrapper">
 				<h4>Inbox</h4>
 				<label for="business-type">Select submission category:</label>
@@ -23,15 +24,14 @@
 					<option value="small-business">Small Business</option>
 					<option value="other">Other</option>
 				</select>
-				<div class="table-wrapper">
+				<div class="table-wrapper" id="table-wrapper">
 					<table>
 						<thead>
 							<tr>
 								<th>Company Name</th>
 								<th>Primary Contact</th>
-								<th>Title</th>
-								<th>Primary Contact Email Address</th>
-								<th>Primary Contact Phone Number</th>
+								<th>Email Address</th>
+								<th>Phone Number</th>
 								
 							</tr>
 						</thead>
@@ -39,13 +39,15 @@
 							<tr class="collapsible">
 								<td>Example Corp</td>
 								<td>John Doe</td>
-								<td>CEO</td>
 								<td><a href="mailto:john.doe@example.com">john.doe@example.com</a></td>
 								<td class="phone-num">+1-123-456-7890</td>
 								<td>3:30pm</td>
 							</tr>
 							<tr class="content">
 								<td colspan="5">
+									<strong>Company Name:</strong> Example Corp<br>
+									<strong>Primary Contact:</strong> John Doe, CEO<br>
+									<strong>Email:</strong> <a href="mailto:john.doe@example.com">john.doe@example.com</a><br>
 									<strong>Company Website:</strong> <a href="https://example.com">https://example.com</a><br>
 									<strong>Registered Business Address:</strong> 123 Business St, Dallas, TX 75201<br>
 									<strong>Company Type:</strong> LLC<br>
@@ -55,12 +57,9 @@
 								</td>
 							</tr>
 							<!-- Additional rows can be added here -->
-						</tbody>
-						<tbody>
 							<tr class="collapsible">
 								<td>Example Corp</td>
 								<td>John Doe</td>
-								<td>CEO</td>
 								<td><a href="mailto:john.doe@example.com">john.doe@example.com</a></td>
 								<td class="phone-num">+1-123-456-7890</td>
 								<td>12/10</td>
@@ -78,18 +77,30 @@
 							<!-- Additional rows can be added here -->
 						</tbody>
 					</table>
+					<ul class="pagination">
+						<li><span class="button small disabled">Prev</span></li>
+						<li><a href="#" class="page active">1</a></li>
+						<li><a href="#" class="page">2</a></li>
+						<li><a href="#" class="page">3</a></li>
+						<li><span>…</span></li>
+						<li><a href="#" class="page">8</a></li>
+						<li><a href="#" class="page">9</a></li>
+						<li><a href="#" class="page">10</a></li>
+						<li><a href="#" class="button small">Next</a></li>
+					</ul>
 				</div>
 			</div>
 
 		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
-			<script src="assets/js/index.js"></script>
-			<script src="assets/js/inbox.js"></script>
+			<script src="../assets/js/jquery.min.js"></script>
+			<script src="../assets/js/jquery.scrolly.min.js"></script>
+			<script src="../assets/js/jquery.scrollex.min.js"></script>
+			<script src="../assets/js/browser.min.js"></script>
+			<script src="../assets/js/breakpoints.min.js"></script>
+			<script src="../assets/js/util.js"></script>
+			<script src="../assets/js/main.js"></script>
+			<script src="../assets/js/index.js"></script>
+			<script src="cssjs/inbox.js"></script>
+			<script src="cssjs/inboxHandler.js"></script>
 	</body>
 </html>

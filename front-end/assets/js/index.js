@@ -1,6 +1,6 @@
 let smallBusinessHTML = `<div class="field">
             <label for="company-name">Company Name</label>
-            <input type="text" name="company-name" id="company-name" />
+            <input type="text" name="company-name" id="company-name" required/>
         </div>
 
         <div class="field">
@@ -20,7 +20,7 @@ let smallBusinessHTML = `<div class="field">
 
         <div class="field half">
             <label for="primary-contact-name">Primary Contact</label>
-            <input type="text" name="primary-contact-name" id="primary-contact-name" placeholder="Name"/>
+            <input type="text" name="primary-contact-name" id="primary-contact-name" placeholder="Name" required/>
         </div>
 
         <div class="field half">
@@ -30,7 +30,7 @@ let smallBusinessHTML = `<div class="field">
 
         <div class="field">
             <label for="primary-contact-email">Primary Contact Person Email Address</label>
-            <input type="email" name="primary-contact-email" id="primary-contact-email" />
+            <input type="email" name="primary-contact-email" id="primary-contact-email" required/>
         </div>
 
         <div class="field">
@@ -44,13 +44,13 @@ let smallBusinessHTML = `<div class="field">
         </div>
         										<div class="field">
 											<label for="message">Message</label>
-											<textarea name="message" id="message" rows="6"></textarea>
+											<textarea name="message" id="message" rows="6" required></textarea>
 										</div>
 `;
 let retailerHTML = `
 										<div class="field">
 											<label for="company-name">Company Name</label>
-											<input type="text" name="company-name" id="company-name" />
+											<input type="text" name="company-name" id="company-name" required/>
 										</div>
 
 										<div class="field">
@@ -75,7 +75,7 @@ let retailerHTML = `
 
 										<div class="field half">
 											<label for="primary-contact-name">Primary Contact</label>
-											<input type="text" name="primary-contact-name" id="primary-contact-name" placeholder="Name"/>
+											<input type="text" name="primary-contact-name" id="primary-contact-name" placeholder="Name" required/>
 										</div>
 
 										<div class="field half">
@@ -85,7 +85,7 @@ let retailerHTML = `
 
 										<div class="field">
 											<label for="primary-contact-email">Primary Contact Email Address</label>
-											<input type="email" name="primary-contact-email" id="primary-contact-email" />
+											<input type="email" name="primary-contact-email" id="primary-contact-email" required/>
 										</div>
 
 										<div class="field">
@@ -99,19 +99,19 @@ let retailerHTML = `
 										</div>
 										<div class="field">
 											<label for="message">Message</label>
-											<textarea name="message" id="message" rows="6"></textarea>
+											<textarea name="message" id="message" rows="6" required></textarea>
 										</div>`;
 let otherHTML = `										<div class="field half">
 											<label for="name">Name</label>
-											<input type="text" name="name" id="name" />
+											<input type="text" name="name" id="name" required/>
 										</div>
 										<div class="field half">
 											<label for="email">Email</label>
-											<input type="text" name="email" id="email" />
+											<input type="text" name="email" id="email" required/>
 										</div>
                                         										<div class="field">
 											<label for="message">Message</label>
-											<textarea name="message" id="message" rows="6"></textarea>
+											<textarea name="message" id="message" rows="6" required></textarea>
 										</div>`;
 
 function handleRadioClick(radio) {
