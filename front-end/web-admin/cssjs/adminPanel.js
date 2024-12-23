@@ -1,24 +1,19 @@
-document
-  .getElementById("business-type")
-  .addEventListener("change", function () {
-    const selectedValue = this.value;
-    const contentPanel = document.querySelector(".content-panel");
+document.getElementById("dashboard-selector").addEventListener("change", function() {
+    console.log("hi" + document.getElementById("dashboard-selector").value)
+    const contentPanel = document.getElementById("content-panel");
+    switch (document.getElementById("dashboard-selector").value){
+        case "form-submissions":
+            contentPanel.innerHTML = `hello`;
+            //                <iframe src="inbox.html" title="Inbox"></iframe>
 
-    if (selectedValue === "form-submissions") {
-      // Insert predetermined HTML for Form Submissions
-      contentPanel.innerHTML = `
-      <h4>Inbox</h4>
-        <label for="business-type">Select submission category:</label>
-        <select id="business-type" name="business-type">
-            <option value="retailer">Retailer</option>
-            <option value="small-business">Small Business</option>
-            <option value="other">Other</option>
-        </select>
-        <div class="table-wrapper" id="table-wrapper">
-    </div>
-`;
-    } else {
-      // Clear content if another option is selected
-      contentPanel.innerHTML = "";
+        case "content-editor":
+
+        case "website-statistics":
+
+        case "accounts":
+
     }
-  });
+    document.getElementById("content-panel").innerHTML = `
+    <iframe
+    `
+})
