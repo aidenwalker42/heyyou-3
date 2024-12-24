@@ -1,10 +1,11 @@
 document.getElementById("dashboard-selector").addEventListener("change", function() {
     console.log("hi" + document.getElementById("dashboard-selector").value)
     const contentPanel = document.getElementById("content-panel");
+    contentPanel.innerHTML = ""
     switch (document.getElementById("dashboard-selector").value){
         case "form-submissions":
-            contentPanel.innerHTML = `hello`;
-            //                <iframe src="inbox.html" title="Inbox"></iframe>
+            contentPanel.innerHTML = `<iframe class="component" src="inbox.html" title="Inbox"></iframe>`;
+            console.log(contentPanel.innerHTML)
 
         case "content-editor":
 
@@ -13,7 +14,4 @@ document.getElementById("dashboard-selector").addEventListener("change", functio
         case "accounts":
 
     }
-    document.getElementById("content-panel").innerHTML = `
-    <iframe
-    `
 })
