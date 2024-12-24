@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+  //make items expandable
   var coll = document.getElementsByClassName("collapsible");
   for (var i = 0; i < coll.length; i++) {
     coll[i].addEventListener("click", function () {
@@ -13,5 +14,5 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  setupBusinessTypeListener();
+  setupBusinessTypeListener(); //not sure if this is needed
 });
