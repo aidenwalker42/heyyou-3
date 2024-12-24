@@ -126,3 +126,98 @@ function handleRadioClick(radio) {
     contactField.innerHTML = otherHTML;
   }
 }
+
+//// CONTACT US SUBMIT HANDLER
+
+document
+  .querySelector("#contact form")
+  .addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    const formData = new FormData(event.target); // Get form data
+    let formObject = Object.fromEntries(formData.entries()); // Convert FormData to a plain object
+
+    // Get the selected radio button id
+    const selectedRadioId =
+      document.querySelector('input[name="radio-contact"]:checked')?.id || "";
+    formObject["selected-radio-id"] = selectedRadioId;
+
+    // Add current timestamp (UTC)
+    formObject["submission-timestamp"] = new Date().toISOString();
+
+    console.log(formObject); // Log the object
+
+    // Format form data based on selected radio button
+    formObject = convertFormData(formObject);
+
+    console.log(formObject);
+    // Carlo send formObject to server
+  });
+
+function convertFormData(formData) {
+  //This formats the form data into the exact format used when displaying the inbox
+  const baseFormat = {
+    message: formData["message"] || "",
+    time: formData["submission-timestamp"] || new Date().toISOString(),
+    convertUtcToLocal: function () {
+      const utcDate = new Date(this.time); // Convert UTC time string to Date object
+      const options = {
+        month: "2-digit",
+        day: "2-digit",
+        year: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true,
+      };
+      return utcDate
+        .toLocaleString("en-US", options)
+        .replace(/,/, "")
+        .replace(/:/g, ":")
+        .toLowerCase();
+    },
+  };
+
+  const submissionType = formData["selected-radio-id"].split("-")[1] || "other";
+  switch (submissionType) {
+    case "retailer":
+      return {
+        ...baseFormat,
+        submissionType: "retailer",
+        companyName: formData["company-name"] || "wtf",
+        companyWebsite: formData["company-website"] || "",
+        registeredBusinessAddress: formData["business-address"] || "",
+        companyType: formData["company-type"] || "",
+        tinOrEin: formData["tax-id"] || "",
+        contactPerson: getContactPerson(formData),
+      };
+    case "small-business":
+      return {
+        ...baseFormat,
+        submissionType: "small-business",
+        companyName: formData["company-name"] || "",
+        product: formData["product"] || "",
+        companyWebsite: formData["company-website"] || "",
+        registeredBusinessAddress: formData["business-address"] || "",
+        contactPerson: getContactPerson(formData),
+      };
+    default:
+      return {
+        ...baseFormat,
+        submissionType: "other",
+        name: formData["name"] || "",
+        email: formData["email"] || "",
+      };
+  }
+}
+
+function getContactPerson(formData) {
+  return {
+    name: formData["primary-contact-name"] || "",
+    title: formData["primary-contact-title"] || "",
+    email: formData["primary-contact-email"] || "",
+    linkedIn: formData["primary-contact-linkedin"] || "",
+    phoneNumber: formData["primary-contact-phone"] || "",
+  };
+}
+
+////
