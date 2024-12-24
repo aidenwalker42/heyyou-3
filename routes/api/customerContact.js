@@ -17,6 +17,7 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
     const customerContactCol = await loadCustomerContactCollection()
     // Checking for proper object
+    console.log(req.body)
     let objAnalysis = DFCCC(req.body)
     if (objAnalysis == "Valid") {
         // Inserting new document

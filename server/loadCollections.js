@@ -2,7 +2,6 @@ import mongodb from 'mongodb'
 
 
 async function loadCustomerContactCollection() {
-    apiKey = process.env.MONGO
     const client = await mongodb.MongoClient.connect(process.env.MONGO)
   
     return client.db('heyyou').collection('customer-contact')

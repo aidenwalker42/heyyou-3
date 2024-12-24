@@ -1,3 +1,5 @@
+import { getAPI } from './api.js'
+
 let smallBusinessHTML = `<div class="field">
             <label for="company-name">Company Name</label>
             <input type="text" name="company-name" id="company-name" required/>
@@ -152,7 +154,19 @@ document
 
     console.log(formObject);
     // Carlo send formObject to server
+    submitFormToApi(formObject)
   });
+  
+async function submitFormToApi(formObject) {
+  let res
+  try {
+    res = await axios.post(getAPI() + "customerContact", formObject);
+  } catch (err) {
+    console.error(err);
+    res = { data: { msg: "Failed to post" } };
+  }
+  return res.data.msg
+}
 
 function convertFormData(formData) {
   //This formats the form data into the exact format used when displaying the inbox
