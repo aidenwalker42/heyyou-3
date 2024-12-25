@@ -34,6 +34,9 @@ async function login() {
     res = { data: { msg: "fail" } };
   }
   if (res.data.msg == "Login Successful!") {
+    // Storing account data in session
+    sessionStorage.setItem("username", username)
+    sessionStorage.setItem("password", password)
     window.open("./admin-panel.html", "_self"); //maybe load in html from server eventually
   } else {
     attemptCount++;

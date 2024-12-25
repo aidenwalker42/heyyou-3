@@ -168,27 +168,32 @@ async function submitFormToApi(formObject) {
   return res.data.msg
 }
 
+const convertTime = (timeStr) => {
+  const utcDate = new Date(timeStr); // Convert UTC time string to Date object
+  const options = {
+    month: "2-digit",
+    day: "2-digit",
+    year: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  };
+  return utcDate
+    .toLocaleString("en-US", options)
+    .replace(/,/, "")
+    .replace(/:/g, ":")
+    .toLowerCase();
+}
+
 function convertFormData(formData) {
+  // First, formatting time...
+  let timeStr = formData["submission-timestamp"] || new Date().toISOString()
+  let timeConv = convertTime(timeStr)
   //This formats the form data into the exact format used when displaying the inbox
   const baseFormat = {
     message: formData["message"] || "",
-    time: formData["submission-timestamp"] || new Date().toISOString(),
-    convertUtcToLocal: function () {
-      const utcDate = new Date(this.time); // Convert UTC time string to Date object
-      const options = {
-        month: "2-digit",
-        day: "2-digit",
-        year: "2-digit",
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: true,
-      };
-      return utcDate
-        .toLocaleString("en-US", options)
-        .replace(/,/, "")
-        .replace(/:/g, ":")
-        .toLowerCase();
-    },
+    time: timeStr,
+    convertUtcToLocal: timeConv
   };
 
   const submissionType = formData["selected-radio-id"].split("-")[1] || "other";

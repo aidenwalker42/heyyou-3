@@ -144,11 +144,11 @@ async function DFCCC(submissionData) {
     }
     
     // Checking if too much data
-    const blob = new Blob(JSON.stringify(submissionData))
-    if (blob.size > 100000){
+    console.log(JSON.stringify(submissionData).length)
+    if (JSON.stringify(submissionData).length > 5000){
         return "Submission too large"
     }
-    for(let x in currentRK){
+    for(let x of currentRK){
         if(x == "contactPerson"){
             // checking if entries match contact person
             if (Object.keys(submissionData[x] !== requiredKeysCP)){
@@ -163,6 +163,7 @@ async function DFCCC(submissionData) {
         } else {
             // or not a string in normal
             if(typeof submissionData[x] !== "string" && x != "convertUtcToLocal"){
+                console.log(x)
                 return "One of the entries is not a string"
             }
             if (submissionData[x] instanceof Date && x == "convertUtcToLocal"){
@@ -170,7 +171,16 @@ async function DFCCC(submissionData) {
             }
         }
     }
-    if(await customerContactCol.find(submissionData).toArray().length > 0){
+    // Cloning submission data first...
+    let newSubmissionData = JSON.parse(JSON.stringify(submissionData))
+    // And removing time
+    delete newSubmissionData.time
+    delete newSubmissionData.convertUtcToLocal
+    console.log(newSubmissionData)
+    // Checking for duplicates...
+    let duplicateEntries = await customerContactCol.find(newSubmissionData).toArray()
+    console.log(duplicateEntries)
+    if(duplicateEntries.length > 0){
         return "Duplicate Entry"
     }
     return "Valid"
@@ -178,7 +188,7 @@ async function DFCCC(submissionData) {
 
 const entryDiscrepancyChecker = (submissionData, requiredKeys) => {
     // if entries match
-    if (Object.keys(submissionData) !== requiredKeys) {
+    if (JSON.stringify(Object.keys(submissionData).sort()) !== JSON.stringify(requiredKeys.sort())) {
         return true
     }
     return false

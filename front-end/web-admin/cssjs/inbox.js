@@ -12,7 +12,3 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
-
-document.addEventListener("DOMContentLoaded", () => {
-  setupBusinessTypeListener(); //not sure if this is needed
-});
