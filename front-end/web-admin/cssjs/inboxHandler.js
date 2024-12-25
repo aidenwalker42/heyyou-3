@@ -4,8 +4,9 @@ function loadSubmissions(page = 1) {
 
   // Get all submissions from that category
   // (this is place holder code)
-  // Carlo: here, get the submissions from the server and name the object "submissionsData". (you will need to delete the sample data already named submissionsData)
+  // Carlo: here, get the submissions from the server and name it "submissionsData". it should be an array of objects (you will need to delete the sample data already named submissionsData)
   const filteredSubmissions = submissionsData.filter(
+    //this filters the submissions by the type (retail other small-business)
     (submission) => submission.submissionType === categorySelected
   );
 
@@ -98,19 +99,31 @@ function loadSubmissions(page = 1) {
             <td>${submission.companyName}</td>
             <td>${submission.contactPerson.name}</td>
             <td>${submission.product}</td>
-            <td><a href="mailto:${submission.contactPerson.email}">${submission.contactPerson.email}</a></td>
+            <td><a href="mailto:${submission.contactPerson.email}">${
+          submission.contactPerson.email
+        }</a></td>
             <td class="phone-num">${submission.contactPerson.phoneNumber}</td>
-            <td>${submission.convertUtcToLocal}</td>
+            <td>${submission.convertUtcToLocal()}</td>
           </tr>
           <tr class="content">
             <td colspan="${selectedHeaders.length}">
               <strong>Company Name:</strong> ${submission.companyName}<br>
-              <strong>Primary Contact:</strong> ${submission.contactPerson.name}, ${submission.contactPerson.title}<br>
+              <strong>Primary Contact:</strong> ${
+                submission.contactPerson.name
+              }, ${submission.contactPerson.title}<br>
               <strong>Product:</strong> ${submission.product}<br>
-              <strong>Email:</strong> <a href="mailto:${submission.contactPerson.email}">${submission.contactPerson.email}</a><br>
-              <strong>Company Website:</strong> <a href="${submission.companyWebsite}">${submission.companyWebsite}</a><br>
-              <strong>Registered Business Address:</strong> ${submission.registeredBusinessAddress}<br>
-              <strong>Primary Contact LinkedIn:</strong> <a href="${submission.contactPerson.linkedIn}">LinkedIn Profile</a><br>
+              <strong>Email:</strong> <a href="mailto:${
+                submission.contactPerson.email
+              }">${submission.contactPerson.email}</a><br>
+              <strong>Company Website:</strong> <a href="${
+                submission.companyWebsite
+              }">${submission.companyWebsite}</a><br>
+              <strong>Registered Business Address:</strong> ${
+                submission.registeredBusinessAddress
+              }<br>
+              <strong>Primary Contact LinkedIn:</strong> <a href="${
+                submission.contactPerson.linkedIn
+              }">LinkedIn Profile</a><br>
               <strong>Message:</strong> ${submission.message}
             </td>
           </tr>
@@ -119,14 +132,18 @@ function loadSubmissions(page = 1) {
         tableHTML += `
           <tr class="collapsible">
             <td>${submission.name}</td>
-            <td><a href="mailto:${submission.email}">${submission.email}</a></td>
+            <td><a href="mailto:${submission.email}">${
+          submission.email
+        }</a></td>
             <td>${submission.message}</td>
-            <td>${submission.convertUtcToLocal}</td>
+            <td>${submission.convertUtcToLocal()}</td>
           </tr>
           <tr class="content">
             <td colspan="${selectedHeaders.length}">
               <strong>Company Name:</strong> ${submission.name}<br>
-              <strong>Email:</strong> <a href="mailto:${submission.email}">${submission.email}</a><br>
+              <strong>Email:</strong> <a href="mailto:${submission.email}">${
+          submission.email
+        }</a><br>
               <strong>Message:</strong> ${submission.message}<br>
             </td>
           </tr>
