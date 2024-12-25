@@ -1,10 +1,31 @@
-function loadSubmissions(page = 1) {
+import { getAPI } from "../../assets/js/api.js";
+
+document.getElementById("business-type").addEventListener("change", () => {
+  loadSubmissions();
+});
+
+async function loadSubmissions(page = 1) {
+  console.log("hi");
   // Detect what category is selected
   const categorySelected = document.getElementById("business-type").value;
 
   // Get all submissions from that category
-  // (this is place holder code)
-  // Carlo: here, get the submissions from the server and name it "submissionsData". it should be an array of objects (you will need to delete the sample data already named submissionsData)
+  let res;
+  try {
+    res = await axios.get(getAPI() + "customerContact", {
+      params: {
+        username: sessionStorage.getItem("username"),
+        password: sessionStorage.getItem("password"),
+        category: categorySelected,
+      },
+    });
+  } catch (err) {
+    console.error(err);
+    res = { data: { posts: [], msg: "fail" } };
+  }
+  submissionsData = res.data.posts;
+  // Carlo: here, get the submissions from the server and name the object "submissionsData". (you will need to delete the sample data already named submissionsData)
+
   const filteredSubmissions = submissionsData.filter(
     //this filters the submissions by the type (retail other small-business)
     (submission) => submission.submissionType === categorySelected
@@ -198,16 +219,6 @@ function loadSubmissions(page = 1) {
           content.style.display === "table-row" ? "none" : "table-row";
       });
     }
-  }
-}
-// listen for selection
-function setupBusinessTypeListener() {
-  const businessTypeSelect = document.getElementById("business-type");
-
-  if (businessTypeSelect) {
-    businessTypeSelect.addEventListener("change", () => {
-      loadSubmissions();
-    });
   }
 }
 
