@@ -116,33 +116,49 @@ let otherHTML = `										<div class="field half">
 											<textarea name="message" id="message" rows="6" required></textarea>
 										</div>`;
 
-function handleRadioClick(radio) {
-  const contactField = document.getElementById("contact-field");
-  if (radio.id === "radio-retailer") {
-    contactField.innerHTML = retailerHTML;
-  }
-  if (radio.id === "radio-small-business") {
-    contactField.innerHTML = smallBusinessHTML;
-  }
-  if (radio.id === "radio-other") {
-    contactField.innerHTML = otherHTML;
-  }
-}
+// function handleRadioClick(radio) {
+//   const contactField = document.getElementById("contact-field");
+//   if (radio.id === "radio-retailer") {
+//     contactField.innerHTML = retailerHTML;
+//   }
+//   if (radio.id === "radio-small-business") {
+//     contactField.innerHTML = smallBusinessHTML;
+//   }
+//   if (radio.id === "radio-other") {
+//     contactField.innerHTML = otherHTML;
+//   }
+// }
+
+// Handle radio click is bugged... so using event listeners......
+let selectedRadioId = "radio-other"
+document.getElementById("radio-retailer").addEventListener("click", () => {
+  document.getElementById("contact-field").innerHTML = retailerHTML
+  selectedRadioId = "radio-retailer"
+})
+document.getElementById("radio-small-business").addEventListener("click", () => {
+  document.getElementById("contact-field").innerHTML = smallBusinessHTML
+  selectedRadioId = "radio-small-business"
+})
+document.getElementById("radio-other").addEventListener("click", () => {
+  document.getElementById("contact-field").innerHTML = otherHTML
+  selectedRadioId = "radio-other"
+})
 
 //// CONTACT US SUBMIT HANDLER
 
 document
   .querySelector("#contact form")
+  // lolol noob normal function instead of arrow function
   .addEventListener("submit", function (event) {
     event.preventDefault(); // Prevent the default form submission
 
     const formData = new FormData(event.target); // Get form data
     let formObject = Object.fromEntries(formData.entries()); // Convert FormData to a plain object
 
-    // Get the selected radio button id
-    const selectedRadioId =
-      document.querySelector('input[name="radio-contact"]:checked')?.id || "";
-    formObject["selected-radio-id"] = selectedRadioId;
+    // Get the selected radio button id... EDIT: erm yeah this is changed above. Not sure why this all stopped working
+    // const selectedRadioId =
+    //   document.querySelector('input[name="radio-contact"]:checked')?.id || "";
+     formObject["selected-radio-id"] = selectedRadioId;
 
     // Add current timestamp (UTC)
     formObject["submission-timestamp"] = new Date().toISOString();
@@ -168,32 +184,24 @@ async function submitFormToApi(formObject) {
   return res.data.msg
 }
 
-const convertTime = (timeStr) => {
-  const utcDate = new Date(timeStr); // Convert UTC time string to Date object
-  const options = {
-    month: "2-digit",
-    day: "2-digit",
-    year: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: true,
-  };
-  return utcDate
-    .toLocaleString("en-US", options)
-    .replace(/,/, "")
-    .replace(/:/g, ":")
-    .toLowerCase();
-}
-
 function convertFormData(formData) {
-  // First, formatting time...
-  let timeStr = formData["submission-timestamp"] || new Date().toISOString()
-  let timeConv = convertTime(timeStr)
   //This formats the form data into the exact format used when displaying the inbox
   const baseFormat = {
     message: formData["message"] || "",
-    time: timeStr,
-    convertUtcToLocal: timeConv
+    time: formData["submission-timestamp"] || new Date().toISOString(),
+    convertUtcToLocal: function () {
+      const utcDate = new Date(this.time); // Convert UTC time string to Date object
+      const options = {
+        month: "2-digit",
+        day: "2-digit",
+        year: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true, // Ensure am/pm format
+      };
+      const localDate = utcDate.toLocaleString("en-US", options); // Convert to local time in desired format
+      return localDate.replace(/,/, "").replace(/:/g, ":").toLowerCase(); // Clean up the format
+    }
   };
 
   const submissionType = formData["selected-radio-id"].split("-")[1] || "other";

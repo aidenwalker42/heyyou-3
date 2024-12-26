@@ -151,11 +151,11 @@ async function DFCCC(submissionData) {
     for(let x of currentRK){
         if(x == "contactPerson"){
             // checking if entries match contact person
-            if (Object.keys(submissionData[x] !== requiredKeysCP)){
+            if (entryDiscrepancyChecker(submissionData[x], requiredKeysCP)){
                 return "Contact person entries do not match required keys, possibly wrong order"
             }
             // checking if not a string in contact person
-            for(let y in requiredKeysCP){
+            for(let y of requiredKeysCP){
                 if(typeof submissionData.contactPerson[y] !== "string"){
                     return "Bad Contact Person"
                 }
@@ -166,7 +166,7 @@ async function DFCCC(submissionData) {
                 console.log(x)
                 return "One of the entries is not a string"
             }
-            if (submissionData[x] instanceof Date && x == "convertUtcToLocal"){
+            if (typeof submissionData[x] !== "function" && x == "convertUtcToLocal"){
                 return "Bad time"
             }
         }

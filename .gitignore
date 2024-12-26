@@ -2,3 +2,4 @@ node_modules
 secrets.json
 /front-end/videos/unloading.mov
 .env
+/server/devToy.js
