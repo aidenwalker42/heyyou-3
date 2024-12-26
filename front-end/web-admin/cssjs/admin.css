@@ -8,10 +8,10 @@
 
 .component {
   width: 100%;
-  height: 65vh;
+  height: 80vh;
 }
 
-#wrapper{
+#wrapper {
   padding-top: 0px !important;
 }
 

@@ -88,7 +88,7 @@ async function loadSubmissions(page = 1) {
           submission.contactPerson.email
         }</a></td>
             <td class="phone-num">${submission.contactPerson.phoneNumber}</td>
-            <td>${submission.convertUtcToLocal()}</td>
+            <td>${convertUtcToLocal(submission.time)}</td>
           </tr>
           <tr class="content">
             <td colspan="${selectedHeaders.length}">
@@ -124,7 +124,7 @@ async function loadSubmissions(page = 1) {
           submission.contactPerson.email
         }</a></td>
             <td class="phone-num">${submission.contactPerson.phoneNumber}</td>
-            <td>${submission.convertUtcToLocal()}</td>
+            <td>${convertUtcToLocal(submission.time)}</td>
           </tr>
           <tr class="content">
             <td colspan="${selectedHeaders.length}">
@@ -157,7 +157,7 @@ async function loadSubmissions(page = 1) {
           submission.email
         }</a></td>
             <td>${submission.message}</td>
-            <td>${submission.convertUtcToLocal()}</td>
+            <td>${convertUtcToLocal(submission.time)}</td>
           </tr>
           <tr class="content">
             <td colspan="${selectedHeaders.length}">
@@ -397,3 +397,17 @@ let submissionsData = [
 
 // // Generate 1000 submissions
 // submissionsData = generateRandomSubmissions();
+
+function convertUtcToLocal(time) {
+  const utcDate = new Date(time); // Convert UTC time string to Date object
+  const options = {
+    month: "2-digit",
+    day: "2-digit",
+    year: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true, // Ensure am/pm format
+  };
+  const localDate = utcDate.toLocaleString("en-US", options); // Convert to local time in desired format
+  return localDate.replace(/,/, "").replace(/:/g, ":").toLowerCase(); // Clean up the format
+}

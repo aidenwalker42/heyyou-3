@@ -1,4 +1,4 @@
-import { getAPI } from './api.js'
+import { getAPI } from "./api.js";
 
 let smallBusinessHTML = `<div class="field">
             <label for="company-name">Company Name</label>
@@ -116,33 +116,41 @@ let otherHTML = `										<div class="field half">
 											<textarea name="message" id="message" rows="6" required></textarea>
 										</div>`;
 
-// function handleRadioClick(radio) {
-//   const contactField = document.getElementById("contact-field");
-//   if (radio.id === "radio-retailer") {
-//     contactField.innerHTML = retailerHTML;
-//   }
-//   if (radio.id === "radio-small-business") {
-//     contactField.innerHTML = smallBusinessHTML;
-//   }
-//   if (radio.id === "radio-other") {
-//     contactField.innerHTML = otherHTML;
-//   }
-// }
+document.addEventListener("DOMContentLoaded", () => {
+  // Get the Brands element and the list of brands
+  const brandsNav = document.getElementById("brands-nav");
+  const brandsList = document.getElementById("brands-list");
 
+  // Add an event listener to toggle the visibility of the brands list
+  brandsNav.addEventListener("click", () => {
+    if (
+      brandsList.style.display === "none" ||
+      brandsList.style.display === ""
+    ) {
+      brandsList.style.display = "block"; // Show the list
+    } else {
+      brandsList.style.display = "none"; // Hide the list
+    }
+  });
+});
+console.log("heyu");
 // Handle radio click is bugged... so using event listeners......
-let selectedRadioId = "radio-other"
+let selectedRadioId = "radio-other";
+console.log(selectedRadioId);
 document.getElementById("radio-retailer").addEventListener("click", () => {
-  document.getElementById("contact-field").innerHTML = retailerHTML
-  selectedRadioId = "radio-retailer"
-})
-document.getElementById("radio-small-business").addEventListener("click", () => {
-  document.getElementById("contact-field").innerHTML = smallBusinessHTML
-  selectedRadioId = "radio-small-business"
-})
+  document.getElementById("contact-field").innerHTML = retailerHTML;
+  selectedRadioId = "radio-retailer";
+});
+document
+  .getElementById("radio-small-business")
+  .addEventListener("click", () => {
+    document.getElementById("contact-field").innerHTML = smallBusinessHTML;
+    selectedRadioId = "radio-small-business";
+  });
 document.getElementById("radio-other").addEventListener("click", () => {
-  document.getElementById("contact-field").innerHTML = otherHTML
-  selectedRadioId = "radio-other"
-})
+  document.getElementById("contact-field").innerHTML = otherHTML;
+  selectedRadioId = "radio-other";
+});
 
 //// CONTACT US SUBMIT HANDLER
 
@@ -158,7 +166,7 @@ document
     // Get the selected radio button id... EDIT: erm yeah this is changed above. Not sure why this all stopped working
     // const selectedRadioId =
     //   document.querySelector('input[name="radio-contact"]:checked')?.id || "";
-     formObject["selected-radio-id"] = selectedRadioId;
+    formObject["selected-radio-id"] = selectedRadioId;
 
     // Add current timestamp (UTC)
     formObject["submission-timestamp"] = new Date().toISOString();
@@ -170,18 +178,23 @@ document
 
     console.log(formObject);
     // Carlo send formObject to server
-    submitFormToApi(formObject)
+    submitFormToApi(formObject);
   });
-  
+
 async function submitFormToApi(formObject) {
-  let res
+  let res;
   try {
     res = await axios.post(getAPI() + "customerContact", formObject);
+    let formSubmittedHTML = `
+    <h3>Form Submitted</h3>
+    <p>Thank you for reaching out to us! we will review your submission and contact you.</p>`;
+    document.querySelector("#contact .inner > section").innerHTML =
+      formSubmittedHTML;
   } catch (err) {
     console.error(err);
     res = { data: { msg: "Failed to post" } };
   }
-  return res.data.msg
+  return res.data.msg;
 }
 
 function convertFormData(formData) {
@@ -189,21 +202,9 @@ function convertFormData(formData) {
   const baseFormat = {
     message: formData["message"] || "",
     time: formData["submission-timestamp"] || new Date().toISOString(),
-    convertUtcToLocal: function () {
-      const utcDate = new Date(this.time); // Convert UTC time string to Date object
-      const options = {
-        month: "2-digit",
-        day: "2-digit",
-        year: "2-digit",
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: true, // Ensure am/pm format
-      };
-      const localDate = utcDate.toLocaleString("en-US", options); // Convert to local time in desired format
-      return localDate.replace(/,/, "").replace(/:/g, ":").toLowerCase(); // Clean up the format
-    }
   };
-
+  console.log(formData["selected-radio-id"]);
+  console.log(formData["selected-radio-id"].split("-")[1]);
   const submissionType = formData["selected-radio-id"].split("-")[1] || "other";
   switch (submissionType) {
     case "retailer":
@@ -217,7 +218,7 @@ function convertFormData(formData) {
         tinOrEin: formData["tax-id"] || "",
         contactPerson: getContactPerson(formData),
       };
-    case "small-business":
+    case "small":
       return {
         ...baseFormat,
         submissionType: "small-business",
