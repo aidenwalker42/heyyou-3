@@ -1,17 +1,22 @@
-(() => {
-    document.getElementById("file-input").onChange = () => {
-        const files = document.getElementById("file-input").files;
-        const file = files[0]
-        if(file == null){
-            return alert('No File Selected')
-        }
+import { getAPI } from "../../assets/js/api.js"
+
+document.getElementById("file-input").onchange = () => {
+    console.log("hi")
+    const files = document.getElementById("file-input").files;
+    const file = files[0]
+    if(file == null){
+        return alert('No File Selected')
     }
+    console.log(file)
     getSignedRequest(file);
-})
+}
+
 
 function getSignedRequest(file){
     const xhr = new XMLHttpRequest()
-    xhr.open('GET', `/sign-s3?file-name=${file.name}&file-type=${file.type}`)
+    xhr.open('GET', getAPI() + `S3?file-name=${file.name}&file-type=${file.type}&username=admin&password=password`)
+    xhr.setRequestHeader('Access-Control-Allow-Origin', 'http://localhost:5000/');
+    xhr.setRequestHeader('Access-Control-Allow-Credentials', 'true');
     xhr.onreadystatechange = () => {
         if(xhr.readyState === 4){
             if(xhr.status === 200){
@@ -28,6 +33,8 @@ function getSignedRequest(file){
 function uploadFile(file, signedRequest, url){
     const xhr = new XMLHttpRequest()
     xhr.open('PUT', signedRequest)
+    xhr.setRequestHeader('Access-Control-Allow-Origin', 'http://localhost:5000/');
+    xhr.setRequestHeader('Access-Control-Allow-Credentials', 'true');
     xhr.onreadystatechange = () => {
         if(xhr.readyState === 4) {
             if(xhr.status === 200){
