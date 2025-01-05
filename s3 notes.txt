@@ -1,0 +1,1 @@
+Cors Policy: Change Allowed Origin to only accept requests from this domain

@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<!--
+	Forty by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Heyyou | Home</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	</head>
+	<body class="is-preload">
+        <div>
+            <h3>Image Upload</h3>
+			<input type="file" id="file-input" crossorigin="anonymous">
+			<p id="status">Please select a file</p>
+			<img id="preview" src="../../images/placeholder.png">
+            <form method="POST" action="/save-details">
+                <input type="hidden" id="image-url" name="image-url" value="images/placeholder.png">
+                <input type="text" name="username" placeholder="Username"><br>
+                <input type="text" name="full-name" placeholder="Full name"><br><br>
+                <input type="submit" value="Update profile">
+            </form>
+        </div>
+		
+
+		<!-- Scripts -->
+			<!--Axios & Index.js-->
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.1/axios.min.js"></script>
+            <script src="imageUpload.js" type="module"></script>
+	</body>
+</html>
