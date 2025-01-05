@@ -15,7 +15,7 @@ document.getElementById("file-input").onchange = () => {
 function getSignedRequest(file){
     const xhr = new XMLHttpRequest()
     xhr.open('GET', getAPI() + `S3?file-name=${file.name}&file-type=${file.type}&username=admin&password=password`)
-    xhr.setRequestHeader('Access-Control-Allow-Origin', 'http://localhost:5000/');
+    xhr.setRequestHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:5500/');
     xhr.setRequestHeader('Access-Control-Allow-Credentials', 'true');
     xhr.onreadystatechange = () => {
         if(xhr.readyState === 4){
@@ -32,8 +32,9 @@ function getSignedRequest(file){
 
 function uploadFile(file, signedRequest, url){
     const xhr = new XMLHttpRequest()
+    console.log(signedRequest)
     xhr.open('PUT', signedRequest)
-    xhr.setRequestHeader('Access-Control-Allow-Origin', 'http://localhost:5000/');
+    xhr.setRequestHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:5500/');
     xhr.setRequestHeader('Access-Control-Allow-Credentials', 'true');
     xhr.onreadystatechange = () => {
         if(xhr.readyState === 4) {

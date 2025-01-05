@@ -28,6 +28,13 @@ app.use(bodyParser.json())
 app.use(limiter)
 app.use(cors())
 
+//Cors bullshit
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 import {router as customerContact} from './routes/api/customerContact.js'
 import {router as websiteModification} from './routes/api/websiteModification.js'
 import {router as admins} from './routes/api/admins.js'

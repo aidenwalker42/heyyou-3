@@ -4,8 +4,18 @@ import aws from 'aws-sdk'
 import { checkCredentials } from '../../server/checkCredentials.js';
 
 
+  
+
 
 const router = express.Router()
+
+// cors bullshit
+// router.use(function(req, res, next) {
+//     res.header("Access-Control-Allow-Origin", "http://127.0.0.1:5500/"); // update to match the domain you will make the request from
+//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//     next();
+//   });
+
 //Get Posts
 router.get('/', async (req, res) => {
     // Simply Checking if username and password are valid login.
