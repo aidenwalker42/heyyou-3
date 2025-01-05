@@ -3576,6 +3576,10 @@ body.is-preload #header.alt {
   max-height: 50em;
 }
 
+#banner.major.alt2 {
+  height: 10vh;
+}
+
 #banner.major.alt {
   opacity: 0.75;
 }
