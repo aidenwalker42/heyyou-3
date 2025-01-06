@@ -126,6 +126,16 @@ td {
   opacity: 1;
 }
 
+#aotm-pfp {
+  height: 200px;
+
+  border-radius: 15px;
+}
+
+.wrapper.editor {
+  max-width: 1280px;
+}
+
 @media screen and (max-width: 1680px) {
   .logo img {
     width: 90px;
