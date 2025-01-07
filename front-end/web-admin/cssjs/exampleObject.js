@@ -1,5 +1,10 @@
+//TEST FILE!!!
+
+//Collapse for better readability
+
 //Example Object with 5 pages
 
+// NOTE: the whole pagesData object should be fetched from server and stored locally, we do not want to keep sending get requests to the server for every page load. (not really a way to go from brand page to brand page navigation wise anyways so maybe doesnt matter)
 const pagesData = [
   {
     pageName: "Las Arepas De Luz",
@@ -233,10 +238,7 @@ const pagesData = [
   },
 ];
 
-/////////////
-
-//Template
-
+// just a Template
 let blankObj = {
   pageName: "", // Blank page name
   header: {
@@ -279,56 +281,200 @@ let blankObj = {
   },
 };
 
-// Collect the values from all the fields
-const brandName = document.getElementById("header-input").value;
-const subtext = document.getElementById("subtext-textarea").value;
-const bannerImage = document.getElementById("banner-image").value; // For text input, access the value directly
-const ourStoryHeader = document.getElementById("our-story-header").value;
-const ourStorySubtext = document.getElementById("our-story-subtext").value;
-const panel1Image = document.getElementById("panel-1-image").value;
-const panel1Header = document.getElementById("panel-1-header").value;
-const panel1Desc = document.getElementById("panel-1-desc").value;
-const panel1BtnLink = document.getElementById("panel-1-btn-link").value;
-const panel1EnableBtn = document.getElementById("panel-1-enable-btn").value;
-const panel2Image = document.getElementById("panel-2-image").value;
-const panel2Header = document.getElementById("panel-2-header").value;
-const panel2Desc = document.getElementById("panel-2-desc").value;
-const panel2BtnLink = document.getElementById("panel-2-btn-link").value;
-const panel2EnableBtn = document.getElementById("panel-2-enable-btn").value;
-const panel3Image = document.getElementById("panel-3-image").value;
-const panel3Header = document.getElementById("panel-3-header").value;
-const panel3Desc = document.getElementById("panel-3-desc").value;
-const panel3BtnLink = document.getElementById("panel-3-btn-link").value;
-const panel3EnableBtn = document.getElementById("panel-3-enable-btn").value;
-const footerHeader = document.getElementById("footer-header").value;
-const footerSubtext = document.getElementById("footer-subtext").value;
-const footerBtnLink = document.getElementById("footer-btn-link").value;
-const footerEnableBtn = document.getElementById("footer-enable-btn").value;
+// parse the URL to extract the query parameter and compare it against the pageName values in pagesData
+function getBrandIndexFromURL() {
+  // Extract the URL query string
+  const params = new URLSearchParams(window.location.search);
 
-// Output all values (you can log them or use them as needed)
-console.log({
-  brandName,
-  subtext,
-  bannerImage,
-  ourStoryHeader,
-  ourStorySubtext,
-  panel1Image,
-  panel1Header,
-  panel1Desc,
-  panel1BtnLink,
-  panel1EnableBtn,
-  panel2Image,
-  panel2Header,
-  panel2Desc,
-  panel2BtnLink,
-  panel2EnableBtn,
-  panel3Image,
-  panel3Header,
-  panel3Desc,
-  panel3BtnLink,
-  panel3EnableBtn,
-  footerHeader,
-  footerSubtext,
-  footerBtnLink,
-  footerEnableBtn,
-});
+  // Get the 'brandName' query parameter
+  const brandName = params.get("brandName");
+
+  // If 'brandName' exists, find its index in pagesData
+  if (brandName) {
+    const index = pagesData.findIndex(
+      (page) => page.pageName.toLowerCase() === brandName.toLowerCase()
+    );
+
+    // Return the index (or -1 if not found)
+    return index;
+  }
+
+  // Return -1 if no 'brandName' is in the URL
+  return -1;
+}
+
+// Once you getBrandIndexFromUrl, then enter the index into this function
+// Loop Through Panels: page.panels.map(...).join("") generates HTML for each panel dynamically.
+// Dynamic Button Logic: Checks the panelEnableBtn or footerEnableBtn keys to conditionally render buttons.
+function generatePageInnerHTML(pageIndex) {
+  const page = pagesData[pageIndex];
+
+  // Example for a header section
+  const headerHTML = `
+    <section id="banner" class="style2">
+      <div class="inner">
+        <span class="image">
+          <img src="${page.header.bannerImage}" alt="${page.header.headerInput}" />
+        </span>
+        <header class="major">
+          <h1>${page.header.headerInput}</h1>
+        </header>
+        <div class="content">
+          <p>${page.header.subtext}</p>
+        </div>
+      </div>
+    </section>
+  `;
+
+  // Example for the "Our Story" section
+  const ourStoryHTML = `
+    <section id="one">
+      <div class="inner">
+        <header class="major">
+          <h2>${page.ourStory.ourStoryHeader}</h2>
+        </header>
+        <p>${page.ourStory.ourStorySubtext}</p>
+      </div>
+    </section>
+  `;
+
+  // Example for the "Panels" section
+  const panelsHTML = page.panels
+    .map(
+      (panel) => `
+      <section>
+        <a href="${panel.panelBtnLink}" class="image">
+          <img src="${panel.panelImage}" alt="${panel.panelHeader}" />
+        </a>
+        <div class="content">
+          <div class="inner">
+            <header class="major">
+              <h3>${panel.panelHeader}</h3>
+            </header>
+            <p>${panel.panelDesc}</p>
+            ${
+              panel.panelEnableBtn === "enabled"
+                ? `
+                  <a href="${panel.panelBtnLink}" class="button">Learn more</a>
+                  `
+                : ""
+            }
+          </div>
+        </div>
+      </section>
+    `
+    )
+    .join("");
+
+  // Example for the footer section
+  const footerHTML = `
+    <section id="three">
+      <div class="inner">
+        <header class="major">
+          <h2>${page.footer.footerHeader}</h2>
+        </header>
+        <p>${page.footer.footerSubtext}</p>
+        ${
+          page.footer.footerEnableBtn === "enabled"
+            ? `<ul class="actions">
+                <li><a href="${page.footer.footerBtnLink}" class="button next" target="_blank">Brand Information</a></li>
+              </ul>`
+            : ""
+        }
+      </div>
+    </section>
+  `;
+
+  // Combine all sections into a single HTML string
+  const pageInnerHTML = `
+    ${headerHTML}
+    ${ourStoryHTML}
+    <section id="two" class="spotlights">
+      ${panelsHTML}
+    </section>
+    ${footerHTML}
+  `;
+
+  return pageInnerHTML;
+}
+
+//Write code to insert innerHTML
+
+/////////////////
+// ADMIN PANEL //
+/////////////////
+// Extracts the values from all the fields in content-editor.html and returns an object that can be pushed to server
+function collectPanelData() {
+  //array returned
+  // Get the number of panels specified
+  const panelCount = parseInt(document.getElementById("panel-count").value, 10);
+  const panels = [];
+
+  for (let i = 1; i <= panelCount; i++) {
+    // Dynamically construct the field IDs
+    const panelImage = document.getElementById(`panel-${i}-image`)?.value || "";
+    const panelHeader =
+      document.getElementById(`panel-${i}-header`)?.value || "";
+    const panelDesc = document.getElementById(`panel-${i}-desc`)?.value || "";
+    const panelBtnLink =
+      document.getElementById(`panel-${i}-btn-link`)?.value || "";
+    const panelEnableBtn =
+      document.getElementById(`panel-${i}-enable-btn`)?.value || "";
+
+    // Push the collected data to the panels array
+    panels.push({
+      panelImage,
+      panelHeader,
+      panelDesc,
+      panelBtnLink,
+      panelEnableBtn,
+    });
+  }
+
+  return panels;
+}
+
+function collectPageData() {
+  //object returned
+  // Collect general header data
+  const brandName = document.getElementById("header-input").value;
+  const subtext = document.getElementById("subtext-textarea").value;
+  const bannerImage = document.getElementById("banner-image").value;
+
+  // Collect "Our Story" data
+  const ourStoryHeader = document.getElementById("our-story-header").value;
+  const ourStorySubtext = document.getElementById("our-story-subtext").value;
+
+  // Collect panels data
+  const panels = collectPanelData();
+
+  // Collect footer data
+  const footerHeader = document.getElementById("footer-header").value;
+  const footerSubtext = document.getElementById("footer-subtext").value;
+  const footerBtnLink = document.getElementById("footer-btn-link").value;
+  const footerEnableBtn = document.getElementById("footer-enable-btn").value;
+
+  // Combine everything into one object
+  // This objects format should be the same format as pagesData
+  const pageData = {
+    pageName: brandName, //
+    header: {
+      headerInput: brandName,
+      subtext,
+      bannerImage,
+    },
+    ourStory: {
+      ourStoryHeader,
+      ourStorySubtext,
+    },
+    panels, // Panels data array
+    footer: {
+      footerHeader,
+      footerSubtext,
+      footerBtnLink,
+      footerEnableBtn,
+    },
+  };
+
+  return pageData;
+}

@@ -24,7 +24,7 @@
     flex-grow: 1;
 }
 
-input, textarea {
+input, textarea, select {
   margin-bottom: 15px; /* Adjust the value to your desired margin size */
 }
 
@@ -74,6 +74,13 @@ input, textarea {
 			<hr>
 
 			<!-- Panel 1 Section -->
+			 <span>
+				 <label for="panel-1-image">How many panels? make this work carlo aka daddy</label>
+					 <input type="text" id="panel-count" name="panel-count" placeholder="#" style="width: 80px;">
+					 <a href="#" class="button primary small">Set</a>
+			 </span>
+			 <br>
+			 <br>
 			<section id="panel-1">
 				<label for="panel-1-image">Panel 1 Image:</label>
 				<input type="text" id="panel-1-image" name="panel-1-image" placeholder="Enter Image URL">
@@ -83,15 +90,15 @@ input, textarea {
 				
 				<label for="panel-1-desc">Panel 1 Description:</label>
 				<textarea id="panel-1-desc" name="panel-1-desc" placeholder="Enter Panel 1 Description"></textarea>
-
-				<label for="panel-1-btn-link">Button Link:</label>
-				<input type="text" id="panel-1-btn-link" name="panel-1-btn-link" placeholder="Enter Button Link">
-				
 				<label for="panel-1-enable-btn">Enable/Disable Button:</label>
 				<select id="panel-1-enable-btn" name="panel-1-enable-btn">
 					<option value="enabled">Enable</option>
 					<option value="disabled">Disable</option>
 				</select>
+
+				<label for="panel-1-btn-link">Button Link:</label>
+				<input type="text" id="panel-1-btn-link" name="panel-1-btn-link" placeholder="Enter Button Link">
+				
 			</section>
 
 			<hr>
@@ -106,15 +113,15 @@ input, textarea {
 				
 				<label for="panel-2-desc">Panel 2 Description:</label>
 				<textarea id="panel-2-desc" name="panel-2-desc" placeholder="Enter Panel 2 Description"></textarea>
-
-				<label for="panel-2-btn-link">Button Link:</label>
-				<input type="text" id="panel-2-btn-link" name="panel-2-btn-link" placeholder="Enter Button Link">
-				
 				<label for="panel-2-enable-btn">Enable/Disable Button:</label>
 				<select id="panel-2-enable-btn" name="panel-2-enable-btn">
 					<option value="enabled">Enable</option>
 					<option value="disabled">Disable</option>
 				</select>
+
+				<label for="panel-2-btn-link">Button Link:</label>
+				<input type="text" id="panel-2-btn-link" name="panel-2-btn-link" placeholder="Enter Button Link">
+				
 			</section>
 
 			<hr>
@@ -129,16 +136,16 @@ input, textarea {
 				
 				<label for="panel-3-desc">Panel 3 Description:</label>
 				<textarea id="panel-3-desc" name="panel-3-desc" placeholder="Enter Panel 3 Description"></textarea>
-
-				<label for="panel-3-btn-link">Button Link:</label>
-				<input type="text" id="panel-3-btn-link" name="panel-3-btn-link" placeholder="Enter Button Link">
-				
 				<label for="panel-3-enable-btn">Enable/Disable Button:</label>
 				<select id="panel-3-enable-btn" name="panel-3-enable-btn">
 					<option value="enabled">Enable</option>
 					<option value="disabled">Disable</option>
 				</select>
 			</section>
+
+				<label for="panel-3-btn-link">Button Link:</label>
+				<input type="text" id="panel-3-btn-link" name="panel-3-btn-link" placeholder="Enter Button Link">
+				
 
 			<hr>
 
@@ -149,15 +156,15 @@ input, textarea {
 				
 				<label for="footer-subtext">Footer Subtext:</label>
 				<textarea id="footer-subtext" name="footer-subtext" placeholder="Enter Footer Subtext"></textarea>
-
-				<label for="footer-btn-link">Footer Button Link:</label>
-				<input type="text" id="footer-btn-link" name="footer-btn-link" placeholder="Enter Footer Button Link">
-
+				
 				<label for="footer-enable-btn">Enable/Disable Footer Button:</label>
 				<select id="footer-enable-btn" name="footer-enable-btn">
 					<option value="enabled">Enable</option>
 					<option value="disabled">Disable</option>
 				</select>
+				<label for="footer-btn-link">Footer Button Link:</label>
+				<input type="text" id="footer-btn-link" name="footer-btn-link" placeholder="Enter Footer Button Link">
+
 			</section>
 
 			<hr>
