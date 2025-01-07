@@ -152,6 +152,26 @@ document.getElementById("radio-other").addEventListener("click", () => {
   selectedRadioId = "radio-other";
 });
 
+//// MAKE URL PRETTY (without changing real path)
+if (window.location.search.includes("q=")) {
+  // Extract the brand name from the query string
+  const urlParams = new URLSearchParams(window.location.search);
+  const brandName = urlParams.get("q");
+
+  // Construct the new URL format
+  const newUrl = `/brands-${brandName}`;
+
+  // Change the browser's URL without reloading the page
+  window.history.replaceState(null, "", newUrl);
+}
+// Check if the URL is in the /brands-thebrandsname format
+const pathParts = window.location.pathname.split("-");
+if (pathParts[0] === "brands" && pathParts.length > 1) {
+  const brandName = pathParts[1]; // Extract the brand name from the URL
+  // Redirect to the correct URL format with the query parameter
+  window.location.href = `/brands.html?q=${brandName}`;
+}
+
 //// CONTACT US SUBMIT HANDLER
 
 document
