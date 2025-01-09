@@ -1,3 +1,5 @@
+import { getAPI } from '../../assets/js/api.js'
+
 let WIPPageObject={
     pageName: "Delicious Bites",
     header: {
@@ -45,6 +47,35 @@ let WIPPageObject={
     },
   }
 
+  let emptyPageObject={
+    pageName: "",
+    header: {
+      headerInput: "", // Brand Name
+      subtext: "", // Subtext
+      bannerImage: "", // Banner Image
+    },
+    ourStory: {
+      ourStoryHeader: "",
+      ourStorySubtext:
+        "",
+    },
+    panels: [
+      {
+        panelImage: "",
+        panelHeader: "",
+        panelDesc: "",
+        panelBtnLink: "", // Button Link
+        panelEnableBtn: "",
+      }
+    ],
+    footer: {
+      footerHeader: "", // Footer Header
+      footerSubtext: "", // Footer Subtext
+      footerBtnLink: "", // Footer Button Link
+      footerEnableBtn: "", // Enable footer button
+    },
+  }
+
 
 // Function for generating html panels based on page number
 const getPanelHTML = (panelNumber) => {
@@ -69,16 +100,16 @@ const getPanelHTML = (panelNumber) => {
 			</section>`
 }
 
-const renderPanels = () => {
+const renderPanels = (pageData) => {
 	// Generating panels html with correct count
 	let panelsHTML = ``
-	for (let x in WIPPageObject.panels){
+	for (let x in pageData.panels){
 		panelsHTML += getPanelHTML(x)
 	}
     document.getElementById("panels-container").innerHTML = panelsHTML
 	// Filling in inputs with appropriate values
 	let i = 0
-	for (let x of WIPPageObject.panels){
+	for (let x of pageData.panels){
 		console.log(x)
 		// For each field in the panels
 		for (let y of Object.keys(x)){
@@ -91,15 +122,82 @@ const renderPanels = () => {
 	}
 }
 
+async function loadPageNames() {
+  // getting list of brand/page names
+  let res;
+  try {
+    res = await axios.get(getAPI() + "websiteModification", {
+      params: {
+        getType: "getPageNames"
+      }
+    });
+  } catch (err) {
+    console.error(err)
+    return "fail"
+  }
+
+  // Building selection HTML
+  let selectionHTML = `<option value="" disabled selected>Select...</option>`
+  for (let pageName of res.data) {
+    selectionHTML += `<option value="${pageName}">${pageName}</option>`
+  }
+}
+
+
+// INCOMPLETE
+async function loadBrandData(pageName) {
+  let res;
+  try {
+    res = await axios.get(getAPI() + "websiteModification", {
+      params: {
+        username: sessionStorage.getItem("username"),
+        password: sessionStorage.getItem("password"),
+        getType: "getBrandData",
+        pageName: pageName
+      }
+    });
+  } catch (err) {
+    console.error(err)
+    return "fail"
+  }
+
+  // Setting Field Values to data
+  // Camelcase to dashed
+  let dashed = camel.replace(/[A-Z]/g, m => "-" + m.toLowerCase());
+
+  document.getElementById("header-input").value = res.data
+}
+
 
 
 
 // GO
-renderPanels()
+renderPanels(WIPPageObject)
+
+document.addEventListener("DOMContentLoaded", function () {
+  // Load page names
+  loadPageNames()
+
+});
 
 
 
 // Event Listeners
 document.getElementById("page-selector").addEventListener("change", () => {
 	document.getElementById("page-selector").value
+  loadBrandData()
 })
+
+
+let listOfElements = ["header-input", "subtext-textarea", "banner-image", "our-story-header", "our-story-subtext",
+  "footer-header", "footer-subtext", "footer-btn-link", "footer-enable-btn"
+]
+document.getElementById("create-page-btn").addEventListener("click", () => {
+  // console.log("Create Page")
+  for (let element of listOfElements) {
+    document.getElementById(element).value = ""
+  }
+})
+
+
+
