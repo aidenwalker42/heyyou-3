@@ -43,77 +43,86 @@ input, textarea, select {
 						<option value="brand">Brand</option>
 						<option value="brand-1">Brand</option>
 					</select>
-					<a href="#" class="button primary small">Create Page</a>
+					<a href="#" class="button primary small" id="create-page-button">Create Page</a>
 				</div>
 		
 				<h3 id="brand-name">Brand Page Name</h3>
-		<form id="brand-form">
-			<!-- Brand Section -->
-			<section id="brand-section">
-				<label for="header-input">Header (Brand Name):</label>
-				<input type="text" id="header-input" name="header-input" placeholder="Enter Header">
-				
-				<label for="subtext-textarea">Subtext:</label>
-				<textarea id="subtext-textarea" name="subtext-textarea" placeholder="Enter Subtext"></textarea>
-				
-				<label for="banner-image">Banner Image:</label>
-				<input type="text" id="banner-image" name="banner-image" placeholder="Enter Image URL">
-			</section>
+						<form id="brand-form" style="display: none;">
+					<!-- Brand Section -->
+					<section id="brand-section">
+						<label for="header-input">Header (Brand Name):</label>
+						<input type="text" id="header-input" name="header-input" placeholder="Enter Header">
+						
+						<label for="subtext-textarea">Subtext:</label>
+						<textarea id="subtext-textarea" name="subtext-textarea" placeholder="Enter Subtext"></textarea>
+						
+						<label for="banner-image">Banner Image:</label>
+						<input type="text" id="banner-image" name="banner-image" placeholder="Enter Image URL">
+						<span>or</span>
+						<input type="file" id="banner-image-file" name="banner-image-file" accept="image/*">
 
-			<hr>
+						<p id="banner-error-message" style="color: red; display: none;">
+                      Please select only one option: either input a URL or choose a file.
+		                </p>
 
-			<!-- Our Story Section -->
-			<section id="our-story">
-				<label for="our-story-header">Header (Our Story):</label>
-				<input type="text" id="our-story-header" name="our-story-header" placeholder="Enter Our Story Header">
-				
-				<label for="our-story-subtext">Subtext:</label>
-				<textarea id="our-story-subtext" name="our-story-subtext" placeholder="Enter Our Story Subtext"></textarea>
-			</section>
+					</section>
 
-			<hr>
+					<hr>
 
-			<!-- Panel 1 Section -->
-			 <span>
-				 <label for="panel-1-image">How many panels? make this work carlo aka daddy</label>
-					 <input type="text" id="panel-count" name="panel-count" placeholder="#" style="width: 80px;">
-					 <a href="#" class="button primary small">Set</a>
-			 </span>
-			 <br>
-			 <br>
-			 <div id="panels-container">
+					<!-- Our Story Section -->
+					<section id="our-story">
+						<label for="our-story-header">Header (Our Story):</label>
+						<input type="text" id="our-story-header" name="our-story-header" placeholder="Enter Our Story Header">
+						
+						<label for="our-story-subtext">Subtext:</label>
+						<textarea id="our-story-subtext" name="our-story-subtext" placeholder="Enter Our Story Subtext"></textarea>
+					</section>
 
-			 </div>
+					<hr>
 
-			
-			<hr>
+					<!-- Panel 1 Section -->
+					<span>
+						<label for="panel-1-image">How many panels?</label>
+						<input type="text" id="panel-count" name="panel-count" placeholder="#" style="width: 80px;">
+						<a href="#" class="button primary small" id="set-panel-count">Set</a>
+					</span>
+					<br>
+					<br>
+					<div id="panels-container">
+						
+					</div>
 
-			<!-- Footer Section -->
-			<section id="footer-section">
-				<label for="footer-header">Footer Header:</label>
-				<input type="text" id="footer-header" name="footer-header" placeholder="Enter Footer Header">
-				
-				<label for="footer-subtext">Footer Subtext:</label>
-				<textarea id="footer-subtext" name="footer-subtext" placeholder="Enter Footer Subtext"></textarea>
-				
-				<label for="footer-enable-btn">Enable/Disable Footer Button:</label>
-				<select id="footer-enable-btn" name="footer-enable-btn">
-					<option value="enabled">Enable</option>
-					<option value="disabled">Disable</option>
-				</select>
-				<label for="footer-btn-link">Footer Button Link:</label>
-				<input type="text" id="footer-btn-link" name="footer-btn-link" placeholder="Enter Footer Button Link">
+					<!-- Footer Section -->
+					<section id="footer-section">
+						<label for="footer-header">Footer Header:</label>
+						<input type="text" id="footer-header" name="footer-header" placeholder="Enter Footer Header">
+						
+						<label for="footer-subtext">Footer Subtext:</label>
+						<textarea id="footer-subtext" name="footer-subtext" placeholder="Enter Footer Subtext"></textarea>
 
-			</section>
+						<label for="footer-enable-btn">Enable/Disable Footer Button:</label>
+						<select id="footer-enable-btn" name="footer-enable-btn" class="enable-btn" data-id="footer">
+						<option value="disabled" selected>Disable</option>
+						<option value="enabled">Enable</option>
+						</select>
 
-			<hr>
+						<div id="footerButtonFields" class="button-fields" style="display: none;">
+							<label for="footer-btn-text">Footer Button Text:</label>
+							<input type="text" id="footer-btn-text" name="footer-btn-text" placeholder="Enter Footer Button Text">
 
-			<!-- Publish Button (Submit Button) -->
-			<div class="publish-section">
-				<input type="submit" value="Submit" id="publish-button">
-			</div>
-		</form>
-	</div>
+							<label for="footer-btn-link">Footer Button Link:</label>
+							<input type="text" id="footer-btn-link" name="footer-btn-link" placeholder="Enter Footer Button Link">
+						</div>
+					</section>
+
+					<hr>
+
+					<!-- Publish Button (Submit Button) -->
+					<div class="publish-section">
+						<input type="submit" value="Submit" id="publish-button">
+					</div>
+				</form>
+					</div>
 		<!-- Scripts -->
 			<script src="../assets/js/jquery.min.js"></script>
 			<script src="../assets/js/jquery.scrolly.min.js"></script>
